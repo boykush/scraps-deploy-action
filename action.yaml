@@ -1,0 +1,9 @@
+name: 'Scraps Deploy to Pages'
+description: 'Build and deploy a Scraps site to GitHub Pages'
+author: 'boykush'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'zap'  
+  color: 'green'
