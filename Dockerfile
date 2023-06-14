@@ -1,9 +1,6 @@
-FROM rust:1.67
-MAINTAINER boykush <k.taichi0315@gmail.com>
+FROM ghcr.io/boykush/scraps-image:0.1.2
 
 RUN apt-get update && apt-get install -y git
-
-RUN cargo install scraps
 
 COPY entrypoint.sh /entrypoint.sh
 
