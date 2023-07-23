@@ -1,4 +1,4 @@
-FROM ghcr.io/boykush/scraps-image:latest
+FROM ghcr.io/boykush/scraps:latest
 
 RUN apt-get update && apt-get install -y git
 
