@@ -2,41 +2,32 @@
 set -e
 set -o pipefail
 
-# For backwards compatibility
+# Accept TOKEN as alias for GITHUB_TOKEN
 if [[ -n "$TOKEN" ]]; then
     GITHUB_TOKEN=$TOKEN
 fi
 
+# Set default for PAGES_BRANCH
 if [[ -z "$PAGES_BRANCH" ]]; then
     PAGES_BRANCH="gh-pages"
 fi
 
-if [[ -z "$BUILD_DIR" ]]; then
-    BUILD_DIR="."
-fi
-
-if [[ -z "$OUT_DIR" ]]; then
-    OUT_DIR="public"
-fi
-
-if [[ -n "$REPOSITORY" ]]; then
-    TARGET_REPOSITORY=$REPOSITORY
-else
-    if [[ -z "$GITHUB_REPOSITORY" ]]; then
-        echo "Set the GITHUB_REPOSITORY env variable."
-        exit 1
-    fi
-    TARGET_REPOSITORY=${GITHUB_REPOSITORY}
-fi
-
-if [[ -z "$GITHUB_TOKEN" ]] && [[ "$BUILD_ONLY" == false ]]; then
-    echo "Set the GITHUB_TOKEN or TOKEN env variables."
+# Validate required environment variables
+if [[ -z "$GITHUB_TOKEN" ]]; then
+    echo "Set the TOKEN env variable."
     exit 1
 fi
 
-if [[ -z "$GITHUB_HOSTNAME" ]]; then
-    GITHUB_HOSTNAME="github.com"
+if [[ -z "$GITHUB_REPOSITORY" ]]; then
+    echo "GITHUB_REPOSITORY env variable is not set."
+    exit 1
 fi
+
+# Hardcoded values
+BUILD_DIR="."
+OUT_DIR="public"
+TARGET_REPOSITORY=${GITHUB_REPOSITORY}
+GITHUB_HOSTNAME="github.com"
 
 main() {
     echo "Starting deploy..."
