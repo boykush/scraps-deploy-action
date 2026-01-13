@@ -1,9 +1,17 @@
 name: 'Scraps Deploy to Pages'
 description: 'Build and deploy a Scraps site to GitHub Pages'
 author: 'boykush'
+inputs:
+  token:
+    description: 'GitHub token for authentication'
+    required: true
+  pages-branch:
+    description: 'Branch to deploy to'
+    required: false
+    default: 'gh-pages'
 runs:
   using: 'docker'
   image: 'Dockerfile'
 branding:
-  icon: 'zap'  
+  icon: 'zap'
   color: 'green'

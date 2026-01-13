@@ -9,11 +9,16 @@ A GitHub Action to build and deploy [Scraps](https://github.com/boykush/scraps) 
 ## Usage
 
 ```yaml
-- uses: boykush/scraps-deploy-action@v2
-  env:
-    TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    PAGES_BRANCH: gh-pages
+- uses: boykush/scraps-deploy-action@v3
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
+    pages-branch: gh-pages  # optional, defaults to 'gh-pages'
 ```
+
+### Inputs
+
+- `token` (required): GitHub token for authentication (e.g., `${{ secrets.GITHUB_TOKEN }}`)
+- `pages-branch` (optional): Branch to deploy to (defaults to `gh-pages`)
 
 ## Documentation
 

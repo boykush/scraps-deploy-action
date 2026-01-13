@@ -2,19 +2,15 @@
 set -e
 set -o pipefail
 
-# Accept TOKEN as alias for GITHUB_TOKEN
-if [[ -n "$TOKEN" ]]; then
-    GITHUB_TOKEN=$TOKEN
-fi
+# Get token from input
+GITHUB_TOKEN=$INPUT_TOKEN
 
-# Set default for PAGES_BRANCH
-if [[ -z "$PAGES_BRANCH" ]]; then
-    PAGES_BRANCH="gh-pages"
-fi
+# Get pages branch from input (default is already set in action.yaml)
+PAGES_BRANCH=$INPUT_PAGES_BRANCH
 
 # Validate required environment variables
 if [[ -z "$GITHUB_TOKEN" ]]; then
-    echo "Set the TOKEN env variable."
+    echo "token input is required."
     exit 1
 fi
 
