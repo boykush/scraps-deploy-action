@@ -3,7 +3,10 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
 
 env:
   CARGO_TERM_COLOR: always
@@ -16,3 +19,46 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  update_alias_tags:
+    needs: github_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version components
+        id: version
+        run: |
+          tag_name="${GITHUB_REF#refs/tags/}"
+          version="${tag_name#v}"
+          IFS='.' read -r major minor patch <<< "$version"
+
+          echo "tag_name=$tag_name" >> $GITHUB_OUTPUT
+          echo "major_tag=v${major}" >> $GITHUB_OUTPUT
+          echo "minor_tag=v${major}.${minor}" >> $GITHUB_OUTPUT
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update major version tag
+        run: |
+          major_tag="${{ steps.version.outputs.major_tag }}"
+          tag_name="${{ steps.version.outputs.tag_name }}"
+
+          echo "Updating $major_tag to $tag_name"
+          git tag -fa "$major_tag" -m "Update $major_tag to $tag_name"
+          git push origin "$major_tag" --force
+
+      - name: Update minor version tag
+        run: |
+          minor_tag="${{ steps.version.outputs.minor_tag }}"
+          tag_name="${{ steps.version.outputs.tag_name }}"
+
+          echo "Updating $minor_tag to $tag_name"
+          git tag -fa "$minor_tag" -m "Update $minor_tag to $tag_name"
+          git push origin "$minor_tag" --force
