@@ -6,7 +6,7 @@ set -o pipefail
 GITHUB_TOKEN=$INPUT_TOKEN
 
 # Get pages branch from input (default is already set in action.yaml)
-PAGES_BRANCH=$INPUT_PAGES_BRANCH
+PAGES_BRANCH=${INPUT_PAGES-BRANCH}
 
 # Validate required environment variables
 if [[ -z "$GITHUB_TOKEN" ]]; then
