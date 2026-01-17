@@ -1,4 +1,4 @@
-FROM ghcr.io/boykush/scraps:0.28.0
+FROM ghcr.io/boykush/scraps:0.28.1
 
 RUN apt-get update && apt-get install -y git
 
