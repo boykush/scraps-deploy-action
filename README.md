@@ -1,5 +1,10 @@
 # Scraps Deploy Action
 
+> [!WARNING]
+> **This repository is archived and no longer maintained.**
+>
+> Starting with [Scraps](https://github.com/boykush/scraps) v1, the official deployment guide recommends using the standard [`actions/deploy-pages`](https://github.com/actions/deploy-pages) workflow instead of this action. See the [official deployment guide](https://boykush.github.io/scraps/scraps/how-to/deploy-to-github-pages.html) for the current setup.
+
 A GitHub Action to build and deploy [Scraps](https://github.com/boykush/scraps) sites to GitHub Pages.
 
 ## About
@@ -22,4 +27,4 @@ A GitHub Action to build and deploy [Scraps](https://github.com/boykush/scraps) 
 
 ## Documentation
 
-See the [official deployment guide](https://boykush.github.io/scraps/scraps/deploy-to-github-pages.how-to.html) for detailed setup instructions.
+See the [official deployment guide](https://boykush.github.io/scraps/scraps/how-to/deploy-to-github-pages.html) for detailed setup instructions.
